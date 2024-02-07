@@ -1,7 +1,4 @@
 /* todo
-- add delete to homework
-- finishing touches 
-- add save feature
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
@@ -17,7 +14,7 @@
     font-family: 'Playfair Display', serif;
 }
 
-.fa-spin-hover:hover {
+.fa-shake-hover:hover {
     -webkit-animation: fa-shake 2s linear;
     -moz-animation: fa-shake 2s linear;
     -o-animation: fa-shake 2s linear;
@@ -51,6 +48,11 @@
 
 #container {
     margin-left: 25vw;
-    width: 50vw;
+    width: 45vw;
     font-family: 'Playfair Display', serif;
+}
+
+input[type='checkbox']{
+    margin-right: 10px;
+    accent-color: black;
 }
