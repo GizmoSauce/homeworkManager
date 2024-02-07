@@ -1,0 +1,56 @@
+/* todo
+- add delete to homework
+- finishing touches 
+- add save feature
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+.textInput {
+    width: 30vw;
+    border: none;
+    outline: none; 
+    border-bottom: 2px solid black; 
+    margin-left: 25vw;
+    margin-bottom: 15px;
+    margin-top: 100px;
+    font-family: 'Playfair Display', serif;
+}
+
+.fa-spin-hover:hover {
+    -webkit-animation: fa-shake 2s linear;
+    -moz-animation: fa-shake 2s linear;
+    -o-animation: fa-shake 2s linear;
+    animation: fa-shake 2s linear;
+}
+  
+@keyframes spin {
+    0% {
+        transform: rotateX('0');
+    }
+
+    100% {
+        transform: rotateX('360');
+    }
+}
+
+.timeInput {
+    width: 15vw;
+    border: none;
+    outline: none; 
+    border-bottom: 2px solid black; 
+    margin-bottom: 15px;
+    margin-top: 100px;
+    font-family: 'Playfair Display', serif;
+}
+
+#inputContainer {
+    display: flex;
+    font-family: 'Playfair Display', serif;
+}
+
+#container {
+    margin-left: 25vw;
+    width: 50vw;
+    font-family: 'Playfair Display', serif;
+}
