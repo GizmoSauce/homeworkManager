@@ -1,27 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homework Manager</title>
     <link rel="stylesheet" type="text/css" href="home.css">
     <link rel="icon" href="images/Newspaper icon.svg">
-    <style>
-        .row {
-            margin-bottom: 10px;
-        }
-        .fa-xmark {
-            cursor: pointer;
-        }
-        .fa-floppy-disk {
-            cursor: pointer;
-        }
-    </style>
 </head>
-<body style="vertical-align: middle;">
+<body style="vertical-align: middle;" class="light-mode">
     <input type="text" class="textInput" id="item" placeholder="Task here">
     <input type="text" class="timeInput" id="dueDate" placeholder="When is it due?"> 
-    <i class="fa fa-solid fa-floppy-disk fa-shake-hover" id="addTaskIcon" style="color: black;"></i> 
+    <image src="images/Floppy Disk Solid.svg" id="addTaskIcon" style="width: 1vw;" class="button"> 
     <div id="container"></div><br>
     <script>
         document.getElementById('addTaskIcon').addEventListener('click', createCheckboxRow);
@@ -39,9 +30,10 @@
                 var row = document.createElement("div");
                 row.className = "row";
 
-                var xmark = document.createElement("i");
-                xmark.className = "fa fa-xmark fa-shake-hover";
-                xmark.style.float = "right";
+                var xmark = document.createElement("img");
+                xmark.className = "button";
+                xmark.style = "float: right; width: 1vw;";
+                xmark.src = "images/Xmark solid.svg";
                 xmark.addEventListener("click", function() {
                     row.remove();
                     saveTasks();
@@ -67,59 +59,58 @@
                 alert("Please enter both task and due date");
             }
         }
-
         function saveTasks() {
-            var tasks = [];
-            var rows = document.querySelectorAll('.row');
-            rows.forEach(function(row) {
-                tasks.push(row.querySelector('label').textContent);
+    var tasks = [];
+    var rows = document.querySelectorAll('.row');
+    rows.forEach(function(row) {
+        tasks.push(row.querySelector('label').textContent);
+    });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    var savedTasks = localStorage.getItem('tasks');
+    if (savedTasks) {
+        var tasks = JSON.parse(savedTasks);
+        tasks.forEach(function(task) {
+            var taskInfo = task.split(' - Due: ');
+            var taskName = taskInfo[0];
+            var dueDate = taskInfo[1];
+            var row = document.createElement("div");
+            row.className = "row";
+
+            var xmark = document.createElement("img");
+            xmark.className = "button";
+            xmark.style = "float: right; width: 1vw;";
+            xmark.src = "images/Xmark solid.svg";
+            xmark.addEventListener("click", function() {
+                row.remove();
+                saveTasks();
             });
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-        }
 
-        function loadTasks() {
-            var savedTasks = localStorage.getItem('tasks');
-            if (savedTasks) {
-                var tasks = JSON.parse(savedTasks);
-                tasks.forEach(function(task) {
-                    var taskInfo = task.split(' - Due: ');
-                    var taskName = taskInfo[0];
-                    var dueDate = taskInfo[1];
-                    var row = document.createElement("div");
-                    row.className = "row";
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "checkbox";
+    
+            var label = document.createElement('label');
+            label.appendChild(document.createTextNode(taskName + " - Due: " + dueDate));
+    
+            row.appendChild(checkbox);
+            row.appendChild(label);
+            row.appendChild(xmark);
+    
+            document.getElementById('container').appendChild(row);
+        });
+    }
+}
 
-                    var xmark = document.createElement("i");
-                    xmark.className = "fa fa-xmark";
-                    xmark.style.float = "right";
-                    xmark.addEventListener("click", function() {
-                        row.remove();
-                        saveTasks();
-                    });
+window.onload = function() {
+    loadTasks();
+};
 
-                    var checkbox = document.createElement("input");
-                    checkbox.type = "checkbox";
-                    checkbox.className = "checkbox";
-            
-                    var label = document.createElement('label');
-                    label.appendChild(document.createTextNode(taskName + " - Due: " + dueDate));
-            
-                    row.appendChild(checkbox);
-                    row.appendChild(label);
-                    row.appendChild(xmark);
-            
-                    document.getElementById('container').appendChild(row);
-                });
-            }
-        }
-
-        // Load tasks on page load
-        window.onload = function() {
-            loadTasks();
-        };
-      
-        setInterval(() => {
-            saveTasks()
-        }, 5000)
+setInterval(() => {
+    saveTasks()
+}, 5000)
     </script>
 </body>
 </html>
